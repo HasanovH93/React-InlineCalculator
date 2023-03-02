@@ -17,10 +17,14 @@ export const App = () => {
     [setResult, setHistory]
   );
 
+  const handleEraseHistory = () => {
+    setHistory([]);
+  };
+
   return (
     <Layout>
       <ExpressionInput handleSubmit={calculateResult} />
-      <Results content={result} history={history} />
+      <Results content={result} eraseHistory={handleEraseHistory} history={history} />
     </Layout>
   );
 };

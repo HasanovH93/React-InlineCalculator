@@ -5,34 +5,41 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Button } from "@material-ui/core";
 import ForwardIcon from "@material-ui/icons/Forward";
 
-export const Results = ({ content, history }) => (
-  <Card data-testid="results">
-    <CardContent>
-      <Typography variant="h5">Results</Typography>
+export const Results = ({ content, history, eraseHistory }) => {
+  const handleEraseHistory = () => {
+    eraseHistory();
+  };
 
-      {content.expression && content.result && (
-        <Typography variant="h5" >
-          <ForwardIcon fontSize="small" />  {content.expression} = {content.result}
-        </Typography>
-      )}
+  return (
+    <Card data-testid="results">
+      <CardContent>
+        <Typography variant="h5">Results</Typography>
 
+        {content.expression && content.result && (
+          <Typography variant="h5">
+            <ForwardIcon fontSize="small" /> {content.expression} = {content.result}
+          </Typography>
+        )}
 
-      <List >
-        {history.map((item, index) => (
-          <ListItem key={index}>
-            <ListItemText
-              primary={`${index + 1}. ${item.expression} = ${
-                item.result
-              }`}
-            />
-          </ListItem>
-        ))}
-      </List>
-    </CardContent>
-  </Card>
-);
+        <List>
+          {history.map((item, index) => (
+            <ListItem key={index}>
+              <ListItemText
+                primary={`${index + 1}. ${item.expression} = ${item.result}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+        {history.length > 0 && (
+          <Button onClick={handleEraseHistory}>Erase History</Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
 
 
 
